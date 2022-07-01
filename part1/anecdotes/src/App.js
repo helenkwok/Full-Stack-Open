@@ -11,30 +11,43 @@ const App = () => {
     'Programming without an extremely heavy use of console.log is same as if a doctor would refuse to use x-rays or blood tests when diagnosing patients.'
   ]
 
-  const [selected, setSelected] = useState(0)
-  const [points, setPoints] = useState(new Uint8Array(anecdotes.length))
+  const [selected, setSelected] = useState(Math.floor(Math.random() * anecdotes.length))
+  const [mostVoted, setMostVoted] = useState(0)
+  const [votes, setVotes] = useState(new Uint8Array(anecdotes.length))
 
-  const updatePoints = (selected) => {
-    const copy = [...points]
+  const updateVotes = (selected) => {
+    const copy = [...votes]
     // increment the value in position 2 by one
     copy[selected] += 1
-    setPoints(copy)
+    setVotes(copy)
+    if (copy[selected] >votes[mostVoted]) {
+      setMostVoted(selected)
+    }
   }
+
+  const randomAnecdote = () => {
+    setSelected(Math.floor(Math.random() * anecdotes.length))
+  }
+
 
   return (
     <div>
+      <h1>Anecdote of the day</h1>
       <p>{anecdotes[selected]}</p>
-      <p>has {points[selected]} votes</p>
+      <p>has {votes[selected]} votes</p>
       <button
-        onClick={() => setSelected(Math.floor(Math.random() * anecdotes.length))}
-      >
-        next anecdote
-      </button>
-      <button
-        onClick={() => updatePoints(selected)}
+        onClick={() => updateVotes(selected)}
       >
         vote
       </button>
+      <button
+        onClick={() => randomAnecdote()}
+      >
+        next anecdote
+      </button>
+      <h1>Anecdote with the most votes</h1>
+      <p>{anecdotes[mostVoted]}</p>
+      <p>has {votes[mostVoted]} votes</p>
     </div>
   )
 }
