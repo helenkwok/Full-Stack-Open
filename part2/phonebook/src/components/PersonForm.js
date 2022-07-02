@@ -1,9 +1,10 @@
 import { useState } from 'react'
 import personService from '../services/persons'
 
-const PersonForm = ({persons, setPersons}) => {
+const PersonForm = ({persons, setPersons, setErrorMessage, setErrorStyle}) => {
   const [newName, setNewName] = useState('')
   const [newNumber, setNewNumber] = useState('')
+
   const addName = event => {
     event.preventDefault()
     if (persons.filter(person => person.name === newName).length === 0) {
@@ -16,8 +17,22 @@ const PersonForm = ({persons, setPersons}) => {
         .create(personObject)
         .then(response => {
           setPersons(persons.concat(response.data))
-          setNewName('')
-          setNewNumber('')
+          setErrorMessage(`Added ${newName}`)
+          setErrorStyle(
+            {
+              marginBottom: 8,
+              padding: 8,
+              backgroundColor: 'lightgrey',
+              borderStyle: 'solid',
+              borderRadius: 4,
+              borderColor: 'green',
+              color: 'green'
+            }
+          )
+          setTimeout(() => {
+            setErrorMessage(null)
+            setErrorStyle(null)
+          }, 5000)
       })
     } else {
       if (window.confirm(`${newName} is already added to phonebook, replace the old number with a new one?`)) {
@@ -40,9 +55,9 @@ const PersonForm = ({persons, setPersons}) => {
       } else {
         alert(`${newName} is already added to phonebook`)
       }
-      setNewName('')
-      setNewNumber('')
     }
+    setNewName('')
+    setNewNumber('')
   }
 
   const handleNameChange = (event) => {
