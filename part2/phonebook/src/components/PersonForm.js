@@ -1,9 +1,7 @@
 import { useState } from 'react'
 import personService from '../services/persons'
 
-const PersonForm = (
-  {persons, setPersons}
-  ) => {
+const PersonForm = ({persons, setPersons}) => {
   const [newName, setNewName] = useState('')
   const [newNumber, setNewNumber] = useState('')
   const addName = event => {

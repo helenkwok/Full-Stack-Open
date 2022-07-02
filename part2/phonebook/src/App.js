@@ -36,6 +36,7 @@ const App = () => {
 
       <Persons
         persons={persons}
+        setPersons={setPersons}
         filter={filter}
       />
     </div>
