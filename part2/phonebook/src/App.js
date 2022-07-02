@@ -1,4 +1,7 @@
 import { useState } from 'react'
+import Filter from './components/Filter'
+import PersonForm from './components/PersonForm'
+import Persons from './components/Persons'
 
 const App = () => {
   const [persons, setPersons] = useState([
@@ -7,68 +10,31 @@ const App = () => {
     { name: 'Dan Abramov', number: '12-43-234345', id: 3 },
     { name: 'Mary Poppendieck', number: '39-23-6423122', id: 4 }
   ])
-  const [newName, setNewName] = useState('')
-  const [newNumber, setNewNumber] = useState('')
+
   const [filter, setFilter] = useState('')
-
-  const addName = (event) => {
-    event.preventDefault()
-    if (persons.filter(person => person.name === newName).length === 0) {
-      setPersons(prevPersons => [...prevPersons, { name: newName, number: newNumber }])
-      setNewName('')
-      setNewNumber('')
-    } else {
-      alert(`${newName} is already added to phonebook`)
-    }
-  }
-
-  const handleNameChange = (event) => {
-    setNewName(event.target.value)
-  }
-  const handleNumberChange = (event) => {
-    setNewNumber(event.target.value)
-  }
-  const handleFilterChange = (event) => {
-    setFilter(event.target.value)
-  }
 
   return (
     <div>
       <h2>Phonebook</h2>
-      <div>
-        {`filter shown with `}
-        <input
-          value={filter}
-          onChange={handleFilterChange}
-        />
-        <div>filter: {filter}</div>
-      </div>
+
+      <Filter
+        filter={filter}
+        setFilter={setFilter}
+      />
+
       <h2>add a new</h2>
-      <form onSubmit={addName}>
-        <div>
-          {`name: `}
-          <input
-            value={newName}
-            onChange={handleNameChange}
-          />
-        </div>
-        <div>
-          {`number: `}
-          <input
-            value={newNumber}
-            onChange={handleNumberChange}
-          />
-        </div>
-        <div>
-          <button type="submit">add</button>
-        </div>
-      </form>
+
+      <PersonForm
+        persons={persons}
+        setPersons={setPersons}
+      />
+
       <h2>Numbers</h2>
-      {persons.filter(person => person.name.toLowerCase().includes(filter.toLowerCase(), 0)).map(person =>
-        <p key={person.name}>
-          {person.name} {person.number}
-        </p>
-      )}
+
+      <Persons
+        persons={persons}
+        filter={filter}
+      />
     </div>
   )
 }
