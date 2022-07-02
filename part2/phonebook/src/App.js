@@ -48,6 +48,8 @@ const App = () => {
         persons={persons}
         setPersons={setPersons}
         filter={filter}
+        setErrorMessage={setErrorMessage}
+        setErrorStyle={setErrorStyle}
       />
     </div>
   )
