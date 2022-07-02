@@ -24,6 +24,7 @@ function App() {
       <Countries
         countries={countries}
         filter={filter}
+        setFilter={setFilter}
       />
     </div>
   );

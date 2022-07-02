@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
+import Country from './Country'
 
-const Countries = ({countries, filter}) => {
+const Countries = ({countries, filter, setFilter}) => {
   const [filteredCountries, setFilteredCountries] = useState('')
 
   useEffect(() => {
@@ -12,22 +13,14 @@ const Countries = ({countries, filter}) => {
       {
         filteredCountries.length > 1 && filteredCountries.length <= 10 ?
         filteredCountries.map(country =>
-          <p key={country.name.common}>{country.name.common}</p>
+          <p key={country.name.common}>
+            {country.name.common}
+            <button onClick={() => setFilter(country.name.common)}>show</button>
+          </p>
         )
         :
         filteredCountries.length === 1?
-        <div>
-          <h1>{filteredCountries[0].name.common}</h1>
-          <p>{`capital ${filteredCountries[0].capital}`}</p>
-          <p>{`area ${filteredCountries[0].area}`}</p>
-          <h3>languages:</h3>
-          <ul>
-            {Object.keys(filteredCountries[0].languages).map(key =>
-              <li key={key}>{filteredCountries[0].languages[key]}</li>
-            )}
-          </ul>
-          <img src={filteredCountries[0].flags.png} alt={filteredCountries[0].name.common} />
-        </div>
+          <Country country={filteredCountries[0]} />
         :
         <div>Too many matches, specify another filter</div>
       }
