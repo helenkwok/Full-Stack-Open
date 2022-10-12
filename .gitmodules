@@ -1,3 +1,6 @@
 [submodule "Full-Stack-Open-Part3"]
 	path = Full-Stack-Open-Part3
 	url = https://github.com/helenkwok/Full-Stack-Open-Part3.git
+[submodule "Full-Stack-Open-Part4"]
+	path = Full-Stack-Open-Part4
+	url = https://github.com/helenkwok/Full-Stack-Open-Part4.git
